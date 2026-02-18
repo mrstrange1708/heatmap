@@ -49,7 +49,7 @@ function App() {
     const activeTheme = themes[theme];
 
     const handleCopy = () => {
-        navigator.clipboard.writeText("npm install heat-calendar");
+        navigator.clipboard.writeText("npm install @mrstrange1708/heat-map");
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
@@ -95,7 +95,7 @@ function App() {
                     <div className="flex flex-col md:flex-row items-center justify-center gap-4">
                         <div className="bg-slate-900 border border-slate-800 rounded-lg px-4 py-3 flex items-center gap-3 font-mono text-sm text-slate-300 shadow-lg cursor-pointer" onClick={handleCopy}>
                             <span className="text-slate-500">$</span>
-                            npm install heat-calendar
+                            npm install @mrstrange1708/heat-map
                             <span className="ml-2 text-xs bg-slate-800 px-2 py-1 rounded text-slate-400">
                                 {copied ? "Copied!" : "📋"}
                             </span>
@@ -153,13 +153,13 @@ function App() {
                     <h2 className="text-2xl font-bold text-white mb-6">Installation</h2>
                     <p className="mb-4">Install the package via your favorite package manager:</p>
                     <div className="bg-slate-900 rounded-lg p-4 border border-slate-800 font-mono text-sm mb-8">
-                        npm install heat-calendar framed-motion
+                        npm install @mrstrange1708/heat-map framer-motion
                     </div>
 
                     <h3 className="text-xl font-bold text-white mb-4">Usage</h3>
                     <div className="bg-slate-900 rounded-lg p-4 border border-slate-800 font-mono text-sm overflow-x-auto">
                         <pre className="language-tsx">
-                            {`import { Heatmap } from "heat-calendar";
+                            {`import { Heatmap } from "@mrstrange1708/heat-map";
 
 const MyComponent = () => {
   const data = [

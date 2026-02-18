@@ -1,6 +1,6 @@
 {
   "name": "@mrstrange1708/heat-map",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A beautiful, customizable heatmap calendar component for React.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
