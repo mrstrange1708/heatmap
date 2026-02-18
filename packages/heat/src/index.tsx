@@ -6,18 +6,45 @@ export interface HeatmapData {
     count: number;
 }
 
+export type HeatmapTheme = {
+    0: string;
+    1: string;
+    2: string;
+    3: string;
+    4: string;
+};
+
+export const themes: Record<"green" | "blue" | "fire", HeatmapTheme> = {
+    green: {
+        0: "bg-gray-800/50",
+        1: "bg-green-900/60",
+        2: "bg-green-700/70",
+        3: "bg-green-500/80",
+        4: "bg-green-400",
+    },
+    blue: {
+        0: "bg-gray-800/50",
+        1: "bg-blue-900/60",
+        2: "bg-blue-700/70",
+        3: "bg-blue-500/80",
+        4: "bg-blue-400",
+    },
+    fire: {
+        0: "bg-gray-800/50",
+        1: "bg-orange-900/60",
+        2: "bg-orange-700/70",
+        3: "bg-orange-500/80",
+        4: "bg-red-500",
+    },
+};
+
 export interface HeatmapProps {
     data: HeatmapData[];
     year?: number;
     gap?: number;
     className?: string;
-    colors?: {
-        0: string;
-        1: string; // < 10 (or first threshold)
-        2: string; // < 25 (or second threshold)
-        3: string; // < 50 (or third threshold)
-        4: string; // >= 50 (or max)
-    };
+    theme?: "green" | "blue" | "fire";
+    colors?: HeatmapTheme;
     thresholds?: [number, number, number]; // [10, 25, 50]
     emptyColor?: string;
 }
@@ -27,13 +54,8 @@ export function Heatmap({
     year = new Date().getFullYear(),
     gap = 2,
     className = "",
-    colors = {
-        0: "bg-gray-800/50",
-        1: "bg-green-900/60",
-        2: "bg-green-700/70",
-        3: "bg-green-500/80",
-        4: "bg-green-400",
-    },
+    theme = "green",
+    colors,
     thresholds = [10, 25, 50],
 }: HeatmapProps) {
     const [hoveredCell, setHoveredCell] = useState<{
@@ -41,6 +63,8 @@ export function Heatmap({
         count: number;
     } | null>(null);
     const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
+
+    const activeColors = colors || themes[theme] || themes.green;
 
     const yearDays = useMemo(() => {
         const days: Date[] = [];
@@ -64,11 +88,11 @@ export function Heatmap({
     }, [data]);
 
     const getColor = (count: number) => {
-        if (count === 0) return colors[0];
-        if (count < thresholds[0]) return colors[1];
-        if (count < thresholds[1]) return colors[2];
-        if (count < thresholds[2]) return colors[3];
-        return colors[4];
+        if (count === 0) return activeColors[0];
+        if (count < thresholds[0]) return activeColors[1];
+        if (count < thresholds[1]) return activeColors[2];
+        if (count < thresholds[2]) return activeColors[3];
+        return activeColors[4];
     };
 
     const weeks = useMemo(() => {

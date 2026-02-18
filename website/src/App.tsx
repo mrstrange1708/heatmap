@@ -27,33 +27,18 @@ function App() {
 
     const themes = {
         green: {
-            0: "bg-gray-800/50",
-            1: "bg-green-900/60",
-            2: "bg-green-700/70",
-            3: "bg-green-500/80",
-            4: "bg-green-400",
             accent: "from-green-400 via-emerald-400 to-teal-500",
             button: "bg-green-500 hover:bg-green-400 shadow-[0_0_20px_rgba(34,197,94,0.3)]",
             selection: "selection:bg-green-500/30",
             icon: "bg-gradient-to-tr from-green-400 to-emerald-600"
         },
         blue: {
-            0: "bg-gray-800/50",
-            1: "bg-blue-900/60",
-            2: "bg-blue-700/70",
-            3: "bg-blue-500/80",
-            4: "bg-blue-400",
             accent: "from-blue-400 via-cyan-400 to-sky-500",
             button: "bg-blue-500 hover:bg-blue-400 shadow-[0_0_20px_rgba(59,130,246,0.3)]",
             selection: "selection:bg-blue-500/30",
             icon: "bg-gradient-to-tr from-blue-400 to-cyan-600"
         },
         fire: {
-            0: "bg-gray-800/50",
-            1: "bg-orange-900/60",
-            2: "bg-orange-700/70",
-            3: "bg-orange-500/80",
-            4: "bg-red-500",
             accent: "from-orange-400 via-red-500 to-yellow-500",
             button: "bg-orange-500 hover:bg-orange-400 shadow-[0_0_20px_rgba(249,115,22,0.3)]",
             selection: "selection:bg-orange-500/30",
@@ -88,7 +73,7 @@ function App() {
                         <a href="#props" className="hover:text-white transition-colors">API</a>
                     </nav>
                     <a
-                        href="https://github.com"
+                        href="https://github.com/mrstrange1708/heatmap"
                         target="_blank"
                         className="text-sm font-medium bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-full transition-all"
                     >
@@ -157,7 +142,7 @@ function App() {
                         <Heatmap
                             data={data}
                             year={year}
-                            colors={themes[theme]}
+                            theme={theme}
                             className="w-full"
                         />
                     </div>

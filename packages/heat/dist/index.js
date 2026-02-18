@@ -20,28 +20,48 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.tsx
 var index_exports = {};
 __export(index_exports, {
-  Heatmap: () => Heatmap
+  Heatmap: () => Heatmap,
+  themes: () => themes
 });
 module.exports = __toCommonJS(index_exports);
 var import_react = require("react");
 var import_framer_motion = require("framer-motion");
 var import_jsx_runtime = require("react/jsx-runtime");
-function Heatmap({
-  data,
-  year = (/* @__PURE__ */ new Date()).getFullYear(),
-  gap = 2,
-  className = "",
-  colors = {
+var themes = {
+  green: {
     0: "bg-gray-800/50",
     1: "bg-green-900/60",
     2: "bg-green-700/70",
     3: "bg-green-500/80",
     4: "bg-green-400"
   },
+  blue: {
+    0: "bg-gray-800/50",
+    1: "bg-blue-900/60",
+    2: "bg-blue-700/70",
+    3: "bg-blue-500/80",
+    4: "bg-blue-400"
+  },
+  fire: {
+    0: "bg-gray-800/50",
+    1: "bg-orange-900/60",
+    2: "bg-orange-700/70",
+    3: "bg-orange-500/80",
+    4: "bg-red-500"
+  }
+};
+function Heatmap({
+  data,
+  year = (/* @__PURE__ */ new Date()).getFullYear(),
+  gap = 2,
+  className = "",
+  theme = "green",
+  colors,
   thresholds = [10, 25, 50]
 }) {
   const [hoveredCell, setHoveredCell] = (0, import_react.useState)(null);
   const [tooltipPos, setTooltipPos] = (0, import_react.useState)({ x: 0, y: 0 });
+  const activeColors = colors || themes[theme] || themes.green;
   const yearDays = (0, import_react.useMemo)(() => {
     const days = [];
     const startDate = new Date(year, 0, 1);
@@ -57,11 +77,11 @@ function Heatmap({
     );
   }, [data]);
   const getColor = (count) => {
-    if (count === 0) return colors[0];
-    if (count < thresholds[0]) return colors[1];
-    if (count < thresholds[1]) return colors[2];
-    if (count < thresholds[2]) return colors[3];
-    return colors[4];
+    if (count === 0) return activeColors[0];
+    if (count < thresholds[0]) return activeColors[1];
+    if (count < thresholds[1]) return activeColors[2];
+    if (count < thresholds[2]) return activeColors[3];
+    return activeColors[4];
   };
   const weeks = (0, import_react.useMemo)(() => {
     const weeks2 = [];
@@ -177,5 +197,6 @@ function Heatmap({
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  Heatmap
+  Heatmap,
+  themes
 });

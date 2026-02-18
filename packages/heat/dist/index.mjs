@@ -2,22 +2,41 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { jsx, jsxs } from "react/jsx-runtime";
-function Heatmap({
-  data,
-  year = (/* @__PURE__ */ new Date()).getFullYear(),
-  gap = 2,
-  className = "",
-  colors = {
+var themes = {
+  green: {
     0: "bg-gray-800/50",
     1: "bg-green-900/60",
     2: "bg-green-700/70",
     3: "bg-green-500/80",
     4: "bg-green-400"
   },
+  blue: {
+    0: "bg-gray-800/50",
+    1: "bg-blue-900/60",
+    2: "bg-blue-700/70",
+    3: "bg-blue-500/80",
+    4: "bg-blue-400"
+  },
+  fire: {
+    0: "bg-gray-800/50",
+    1: "bg-orange-900/60",
+    2: "bg-orange-700/70",
+    3: "bg-orange-500/80",
+    4: "bg-red-500"
+  }
+};
+function Heatmap({
+  data,
+  year = (/* @__PURE__ */ new Date()).getFullYear(),
+  gap = 2,
+  className = "",
+  theme = "green",
+  colors,
   thresholds = [10, 25, 50]
 }) {
   const [hoveredCell, setHoveredCell] = useState(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
+  const activeColors = colors || themes[theme] || themes.green;
   const yearDays = useMemo(() => {
     const days = [];
     const startDate = new Date(year, 0, 1);
@@ -33,11 +52,11 @@ function Heatmap({
     );
   }, [data]);
   const getColor = (count) => {
-    if (count === 0) return colors[0];
-    if (count < thresholds[0]) return colors[1];
-    if (count < thresholds[1]) return colors[2];
-    if (count < thresholds[2]) return colors[3];
-    return colors[4];
+    if (count === 0) return activeColors[0];
+    if (count < thresholds[0]) return activeColors[1];
+    if (count < thresholds[1]) return activeColors[2];
+    if (count < thresholds[2]) return activeColors[3];
+    return activeColors[4];
   };
   const weeks = useMemo(() => {
     const weeks2 = [];
@@ -152,5 +171,6 @@ function Heatmap({
   ] });
 }
 export {
-  Heatmap
+  Heatmap,
+  themes
 };
